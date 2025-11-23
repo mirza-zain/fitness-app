@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Fira';
+    src: url('./assets/fonts/FiraSans-ExtraBold.ttf');
+    font-weight: 800;
+}
