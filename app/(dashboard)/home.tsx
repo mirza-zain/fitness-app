@@ -1,5 +1,6 @@
 // import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
+import exercise from '../Components/ExerciseList'
 
 const home = () => {
   // interface Quotes {
@@ -24,9 +25,26 @@ const home = () => {
   // useEffect(() => { dataFetch() }, [])
 
   return (
-    <View className="w-full h-full flex flex-1">
-      <Text className='text-2xl font-bold text-center font-["Fira"]' style={{marginTop: "20%", fontWeight: 'bold', padding: "5%"}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem fugit obcaecati.</Text>
+    <View>
+      <Text className='text-2xl text-center font-["Fira"]' style={{marginTop: "20%", padding: "5%"}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem fugit obcaecati.</Text>
       <Text className='text-center font-semibold' style={{fontSize: 15}}>"Mirza Zain"</Text>
+      <View style={{height: "7%"}} />
+      <Text className='text-2xl font-semibold p-3'>Continue Training</Text>
+      <FlatList 
+        data={exercise}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => (
+          <View className='h-screen-safe flex justify-center items-center'>
+            <View className='w-3/5 bg-black'>
+              <Image source={{ uri: item.image }} style={{width: "50%", height: "20%"}} />
+            </View>
+            <View className='w-2/5'>
+              <Text className='text-xl font-bold'>{item.name}</Text>
+              <Text className='text-sm font-medium'>{item.description}</Text>
+            </View>
+          </View>
+        )}
+      />
     </View>
   )
 }

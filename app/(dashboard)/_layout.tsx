@@ -30,11 +30,11 @@ const DashboardLayout = () => {
             />
 
             <Tabs.Screen
-                name="about"
+                name="exercise"
                 options={{
-                    title: "About",
+                    title: "Exercise",
                     tabBarIcon: ({ focused, color, size }) => (
-                        <Ionicons name={focused ? "person-circle" : "person-outline"} size={size ?? 20} color={color} />
+                        <Ionicons name={focused ? "barbell" : "barbell-outline"} size={size ?? 20} color={color} />
                     ),
                 }}
             />
