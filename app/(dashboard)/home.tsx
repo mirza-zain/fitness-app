@@ -1,52 +1,55 @@
-// import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import exercise from '../Components/ExerciseList'
 
-const home = () => {
-  // interface Quotes {
-  //   _id: number,
-  //   sentence: string,
-  //   author: string
-  // }
+interface quoteInterface {
+  quote: string,
+  author: string
+}
 
-  // const [dataa, setData] = useState<Quotes | undefined>()
-  // // const urlQuote = 'https://api.gameofthronesquotes.xyz/v1/random'
+const Home = () => {
+  const [data, setData] = useState<quoteInterface | null>(null)
 
-  // const dataFetch = async () => {
-  //   const response = await fetch(urlQuote);
-  //   const result = await response.json()
-  //   if(!result) {
-  //     throw new Error(`Status: 404`)
-  //   }
-  //   // console.log(result)
-  //   setData(result)
-  // }
+  const quoteData = async () => {
+    try {
+      const response = await fetch('https://dummyjson.com/quotes/random')
+      const result = await response.json()
+      setData(result)
+    } catch (err) {
+      throw new Error (`Error Status: ${err}`)
+    } 
+  }
 
-  // useEffect(() => { dataFetch() }, [])
+  useEffect(() => { quoteData() }, [])
 
   return (
-    <View>
-      <Text className='text-2xl text-center font-["Fira"]' style={{marginTop: "20%", padding: "5%"}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem fugit obcaecati.</Text>
-      <Text className='text-center font-semibold' style={{fontSize: 15}}>"Mirza Zain"</Text>
-      <View style={{height: "7%"}} />
-      <Text className='text-2xl font-semibold p-3'>Continue Training</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ paddingHorizontal: 12 }}>
+        <Text style={{padding: 2 ,fontSize: 20, textAlign: 'center', marginTop: 20, marginBottom: 8, fontWeight: 500 }}>
+          {data?.quote || 'Loading...'}
+        </Text>
+        <Text style={{ textAlign: 'center', fontSize: 15, fontWeight: 400 }}>"{data?.author}"</Text>
+        <View style={{ height: 16 }} />
+        <Text style={{ fontSize: 22, fontWeight: '700', paddingHorizontal: 8 }}>Continue Training</Text>
+      </View>
+      
       <FlatList 
         data={exercise}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
+        contentContainerStyle={{ paddingVertical: 12 }}
         renderItem={({item}) => (
-          <View className='h-screen-safe flex justify-center items-center'>
-            <View className='w-3/5 bg-black'>
-              <Image source={{ uri: item.image }} style={{width: "50%", height: "20%"}} />
-            </View>
-            <View className='w-2/5'>
-              <Text className='text-xl font-bold'>{item.name}</Text>
-              <Text className='text-sm font-medium'>{item.description}</Text>
+          <View style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#fff', borderRadius: 8, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 }}>
+            <Image source={{ uri: item.image }} style={{ width: 100, height: 100, borderRadius: 8 }} />
+            <View style={{ flex: 1, paddingLeft: 12, justifyContent: 'center' }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
+              <Text style={{ fontSize: 14, color: '#666', marginTop: 4 }}>{item.description}</Text>
             </View>
           </View>
         )}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default home
+export default Home
