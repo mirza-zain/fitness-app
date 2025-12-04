@@ -25,6 +25,44 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## Working with Local Images
+
+### Adding Exercise Images
+
+To add custom images for exercises:
+
+1. **Add image files** to the `assets/images/` folder (e.g., `pushups.png`, `squats.png`, `plank.png`, `lunges.png`)
+
+2. **Update `app/Components/ExerciseList.tsx`** to use your images:
+   ```javascript
+   const exerciseImages = {
+     pushups: require('../../assets/images/pushups.png'),  // Update with your image
+     squats: require('../../assets/images/squats.png'),    // Update with your image
+     plank: require('../../assets/images/plank.png'),      // Update with your image
+     lunges: require('../../assets/images/lunges.png'),    // Update with your image
+   }
+   ```
+
+### Important Note about require()
+
+In React Native, you **cannot** use `require()` with variables like this:
+```javascript
+// ❌ This will NOT work - causes transform error
+source={require(item.image)}
+```
+
+Instead, you must use **static string paths** in `require()`:
+```javascript
+// ✅ This works - static path
+source={require('../../assets/images/hero.png')}
+
+// ✅ This also works - resolved at build time
+const image = require('../../assets/images/hero.png')
+source={image}
+```
+
+The current implementation uses an image mapping object where all `require()` calls have static paths, then stores the resolved image reference in the exercise data.
+
 ## Get a fresh project
 
 When you're ready, run:
