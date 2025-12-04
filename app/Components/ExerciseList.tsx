@@ -8,7 +8,7 @@ const exerciseImages = {
 }
 
 // Exercise list with resolved image references
-let exercise = [
+const exercise = [
   {
     "id": "1",
     "name": "Push Ups",
