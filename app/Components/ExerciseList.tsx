@@ -1,27 +1,41 @@
+// Import local images using static require
+// Note: require() must have static strings - cannot use variables
+const exerciseImages = {
+  pushups: require('../../assets/images/hero.png'),
+  squats: require('../../assets/images/hero.png'),
+  plank: require('../../assets/images/hero.png'),
+  lunges: require('../../assets/images/hero.png'),
+}
+
+// Exercise list with image keys that map to the exerciseImages object
 let exercise = [
   {
     "id": "1",
     "name": "Push Ups",
     "description": "A classic bodyweight exercise that strengthens the chest, shoulders, and triceps.",
-    "image": "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=500&q=80"
+    "imageKey": "pushups",
+    "image": exerciseImages.pushups
   },
   {
     "id": "2",
     "name": "Squats",
     "description": "A fundamental lower body exercise targeting the quadriceps, hamstrings, and glutes.",
-    "image": "https://images.unsplash.com/photo-1574680096141-1cddd32e0340?w=500&q=80"
+    "imageKey": "squats",
+    "image": exerciseImages.squats
   },
   {
     "id": "3",
     "name": "Plank",
     "description": "An isometric core strength exercise that involves maintaining a position similar to a push-up.",
-    "image": "https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?w=500&q=80"
+    "imageKey": "plank",
+    "image": exerciseImages.plank
   },
   {
     "id": "4",
     "name": "Dumbbell Lunges",
     "description": "A resistance exercise that works your hips, glutes, quads, and hamstrings.",
-    "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&q=80"
+    "imageKey": "lunges",
+    "image": exerciseImages.lunges
   }
 ]
 

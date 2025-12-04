@@ -29,7 +29,7 @@ const Home = () => {
         <Text style={{padding: 2 ,fontSize: 20, textAlign: 'center', marginTop: 20, marginBottom: 8, fontWeight: 500 }}>
           {data?.quote || 'Loading...'}
         </Text>
-        <Text style={{ textAlign: 'center', fontSize: 15, fontWeight: 400 }}>"{data?.author}"</Text>
+        <Text style={{ textAlign: 'center', fontSize: 15, fontWeight: 400 }}>&quot;{data?.author}&quot;</Text>
         <View style={{ height: 16 }} />
         <Text style={{ fontSize: 22, fontWeight: '700', paddingHorizontal: 8 }}>Continue Training</Text>
       </View>
@@ -40,7 +40,7 @@ const Home = () => {
         contentContainerStyle={{ paddingVertical: 12 }}
         renderItem={({item}) => (
           <View style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#fff', borderRadius: 8, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 }}>
-            <Image source={{ uri: item.image }} style={{ width: 100, height: 100, borderRadius: 8 }} />
+            <Image source={item.image} style={{ width: 100, height: 100, borderRadius: 8 }} />
             <View style={{ flex: 1, paddingLeft: 12, justifyContent: 'center' }}>
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
               <Text style={{ fontSize: 14, color: '#666', marginTop: 4 }}>{item.description}</Text>
