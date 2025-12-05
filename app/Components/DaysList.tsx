@@ -6,8 +6,7 @@ const Weeks = [
                 {
                     id: 1,
                     name: "Push Ups",
-                    description: "exercise pushups",
-                    image: "path",
+                    description: "A classic bodyweight exercise that strengthens the chest, shoulders, and triceps.",
                     isCompleted: false
                 },
             ],
@@ -17,10 +16,9 @@ const Weeks = [
             day: "Tues",
             items: [
                 {
-                    id: 1,
+                    id: 2,
                     name: "Squats",
-                    description: "exercise squats",
-                    image: "path",
+                    description: "A fundamental lower body exercise targeting the quadriceps, hamstrings, and glutes.",
                     isCompleted: false
                 },
             ],
@@ -28,12 +26,26 @@ const Weeks = [
         {
             id: 3,
             day: "Wed",
-            items: []
+            items: [
+                {
+                    id: "3",
+                    name: "Plank",
+                    description: "An isometric core strength exercise that involves maintaining a position similar to a push-up.",
+                    isCompleted: false
+                }
+            ]
         },
                 {
             id: 4,
-            day: "Thurs",
-            items: []
+            day: "Thur",
+            items: [
+                {
+                    id: "4",
+                    name: "Dumbbell Lunges",
+                    description: "A resistance exercise that works your hips, glutes, quads, and hamstrings.",
+                    isCompleted: false
+                }
+            ]
         },
                 {
             id: 5,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import exercise from '../Components/ExerciseList'
+import exercise from '../Components/DaysList'
 
 interface quoteInterface {
   quote: string,
@@ -10,6 +10,9 @@ interface quoteInterface {
 
 const Home = () => {
   const [data, setData] = useState<quoteInterface | null>(null)
+  const pendingExercises = exercise
+    .flatMap(day => day.items) 
+    .filter(item => !item.isCompleted);
 
   const quoteData = async () => {
     try {
@@ -35,18 +38,27 @@ const Home = () => {
       </View>
       
       <FlatList 
-        data={exercise}
+        data={pendingExercises}
         keyExtractor={(item) => String(item.id)}
         contentContainerStyle={{ paddingVertical: 12 }}
         renderItem={({item}) => (
-          <View style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#fff', borderRadius: 8, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 }}>
-            <Image source={{uri: item.image}} style={{ width: 100, height: 100, borderRadius: 8 }} />
-            <View style={{ flex: 1, paddingLeft: 12, justifyContent: 'center' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
-              <Text style={{ fontSize: 14, color: '#666', marginTop: 4 }}>{item.description}</Text>
+          <View className='flex-1 bg-white p-4 mb-3 rounded-xl border border-gray-200 shadow-sm'>
+            <View className="mb-2">
+              <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
+              <Text className="text-sm text-gray-500">{item.description}</Text>
+            </View>
+            <View className="flex-row justify-between items-center mt-2">
+              <Text className={`font-bold ${item.isCompleted ? "text-green-600" : "text-orange-500"}`}>
+                {item.isCompleted ? "Completed" : "Pending"}
+              </Text>
             </View>
           </View>
         )}
+        ListEmptyComponent={
+          <Text style={{ textAlign: 'center', marginTop: 20, color: 'gray' }}>
+            All caught up! Great work.
+          </Text>
+        }
       />
     </SafeAreaView>
   )
