@@ -24,7 +24,6 @@ A modern mobile fitness app built with Expo and React Native. Track your daily w
 
 ### Prerequisites
 - Node.js & npm installed
-- Expo CLI: `npm install -g expo-cli`
 
 ### Installation
 
@@ -129,6 +128,10 @@ eas build
 # Preview build
 eas build --preview
 ```
+
+## Download APK
+
+To grab the latest Android APK, check the GitHub **Releases** page for this repo. Each release contains the built APK you can install on your device.
 
 ## Contributing
 
