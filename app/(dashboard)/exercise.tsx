@@ -1,13 +1,17 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
 import Days from '../Components/Days'
+import ExerciseDetail from '../Components/ExerciseDetail'
 
-const index = () => {
+const Exercise = () => {
+  const { id } = useLocalSearchParams();
+
   return (
-    <View className='w-full h-full flex '>
-      <Days />
+    <View className='w-full h-full'>
+      {id ? <ExerciseDetail /> : <Days />}
     </View>
   )
 }
 
-export default index
+export default Exercise

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import exercise from '../Components/DaysList'
+import { useSelector } from 'react-redux'
+import { useFocusEffect } from 'expo-router'
 
 interface quoteInterface {
   quote: string,
@@ -10,9 +11,15 @@ interface quoteInterface {
 
 const Home = () => {
   const [data, setData] = useState<quoteInterface | null>(null)
-  const pendingExercises = exercise
-    .flatMap(day => day.items) 
-    .filter(item => !item.isCompleted);
+  const weeks = useSelector((state: any) => state.exercise.weeks);
+  const pendingExercises = weeks
+    .flatMap((day: any) => day.items) 
+    .filter((item: any) => !item.isCompleted);
+
+  useFocusEffect(
+    React.useCallback(() => {
+    }, [])
+  );
 
   const quoteData = async () => {
     try {
@@ -34,21 +41,21 @@ const Home = () => {
         </Text>
         <Text style={{ textAlign: 'center', fontSize: 15, fontWeight: 400 }}>"{data?.author}"</Text>
         <View style={{ height: 16 }} />
-        <Text style={{ fontSize: 22, fontWeight: '700', paddingHorizontal: 8 }}>Continue Training</Text>
+        <Text style={{ fontSize: 22, fontWeight: '700', paddingHorizontal: 5, textDecorationLine: 'underline' }}>Continue Training</Text>
       </View>
       
       <FlatList 
         data={pendingExercises}
         keyExtractor={(item) => String(item.id)}
-        contentContainerStyle={{ paddingVertical: 12 }}
+        contentContainerStyle={{ paddingVertical: 12, paddingHorizontal: 12 }}
         renderItem={({item}) => (
-          <View className='flex-1 bg-white p-4 mb-3 rounded-xl border border-gray-200 shadow-sm'>
+          <View className='bg-gray-200 p-4 mb-3 rounded-xl border border-gray-300 shadow-md'>
             <View className="mb-2">
-              <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
-              <Text className="text-sm text-gray-500">{item.description}</Text>
+              <Text className="text-lg font-bold text-gray-900">{item.name}</Text>
+              <Text className="text-sm text-gray-600">{item.description}</Text>
             </View>
             <View className="flex-row justify-between items-center mt-2">
-              <Text className={`font-bold ${item.isCompleted ? "text-green-600" : "text-orange-500"}`}>
+              <Text className={`font-bold ${item.isCompleted ? "text-green-500" : "text-orange-500"}`}>
                 {item.isCompleted ? "Completed" : "Pending"}
               </Text>
             </View>

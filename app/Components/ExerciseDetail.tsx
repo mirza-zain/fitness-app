@@ -1,58 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleStatus } from '../slice/ExerciseSlice';
 
-const ExerciseDetail = ({ route } : { route : any }) => {
-  const { item } = route.params;
-  const [isCompleted, setIsCompleted] = useState(item.isCompleted);
+export default function ExerciseDetail() {
+  const { id } = useLocalSearchParams();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const handleToggle = () => {
-    const newStatus = !isCompleted;
-    setIsCompleted(newStatus);
-    item.isCompleted = newStatus; // Updates reference
-
-    if (newStatus) {
-      Alert.alert("Good job!", "Exercise completed.");
+  const exercise = useSelector((state: any) => {
+    for (const day of state.exercise.weeks) {
+      const found = day.items.find((item: any) => item.id == id);
+      if (found) return found;
     }
-  };
+    return null;
+  });
+
+  if (!exercise) return <Text className="p-5 text-lg">Exercise not found</Text>;
 
   return (
-    <View className="flex-1 bg-white p-5">
-      
-      <ScrollView contentContainerClassName="pb-5">
-        {/* Title */}
-        <Text className="text-3xl font-bold text-gray-900 mb-1">
-          {item.name}
-        </Text>
+    <ScrollView className="flex-1 bg-gray-100">
+      <View className="bg-white overflow-hidden">
+        {exercise.image && (
+          <Image 
+            source={exercise.image} 
+            className="w-full h-56"
+            resizeMode="contain"
+            style={{ backgroundColor: "#f3f4f6" }}
+          />
+        )}
+      </View>
 
-        {/* Status Text */}
-        <Text className={`text-base font-semibold mb-6 ${isCompleted ? "text-green-600" : "text-orange-500"}`}>
-          Status: {isCompleted ? "Completed" : "Pending"}
-        </Text>
+      <View className="p-5">
+        <Text className="text-4xl font-bold text-gray-900 mb-2">{exercise.name}</Text>
+        
+        <View className="mb-4">
+          <Text className={`text-lg font-semibold ${exercise.isCompleted ? 'text-green-600' : 'text-orange-500'}`}>
+            Status: {exercise.isCompleted ? 'Completed' : 'Pending'}
+          </Text>
+        </View>
 
-        {/* Divider Line */}
-        <View className="h-[1px] bg-gray-200 mb-6" />
+        <View className="bg-white p-4 rounded-xl mb-6">
+          <Text className="text-base text-gray-700 leading-6">
+            {exercise.description}
+          </Text>
+        </View>
 
-        {/* Description Section */}
-        <Text className="text-xl font-bold text-gray-800 mb-2">
-          Instructions:
-        </Text>
-        <Text className="text-base text-gray-600 leading-7">
-          {item.description || "No description provided."}
-        </Text>
-      </ScrollView>
+        <TouchableOpacity 
+          className={`p-4 rounded-xl ${exercise.isCompleted ? 'bg-orange-500' : 'bg-green-600'}`}
+          onPress={() => dispatch(toggleStatus(id))}
+        >
+          <Text className="text-white text-center text-lg font-semibold">
+            {exercise.isCompleted ? "Mark as Incomplete" : "Mark as Complete"}
+          </Text>
+        </TouchableOpacity>
 
-      {/* Main Action Button */}
-      <TouchableOpacity 
-        onPress={handleToggle}
-        className={`p-4 rounded-xl items-center mb-5 ${isCompleted ? "bg-gray-400" : "bg-blue-600"}`}
-      >
-        <Text className="text-white text-lg font-bold">
-          {isCompleted ? "Mark as Pending" : "Mark as Completed"}
-        </Text>
-      </TouchableOpacity>
-
-    </View>
+        <TouchableOpacity 
+          className="mt-4 p-4 rounded-xl bg-gray-300"
+          onPress={() => router.push('/(dashboard)/exercise')}
+        >
+          <Text className="text-gray-800 text-center text-lg font-semibold">
+            Go Back
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
-};
-
-export default ExerciseDetail;
+}

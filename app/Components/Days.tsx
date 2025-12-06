@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FlatList, Text, TouchableOpacity, View, Modal, TextInput, Alert } from "react-native";
-import initialWeeks from "./DaysList"; 
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import { useSelector, useDispatch } from "react-redux";
+import { addExercise } from "../slice/ExerciseSlice";
 
 const Days = () => {
-  const navigation = useNavigation();
-  const isFocused = useIsFocused();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [weeks, setWeeks] = useState(initialWeeks);
+  const weeks = useSelector((state: any) => state.exercise.weeks);
   const [activeDay, setActiveDay] = useState("Mon");
   
   const [modalVisible, setModalVisible] = useState(false);
   const [newExerciseName, setNewExerciseName] = useState("");
   const [newExerciseDesc, setNewExerciseDesc] = useState("");
 
-  const selectedDay = weeks.find((w) => w.day === activeDay);
-
-  useEffect(() => {
-    if (isFocused) {
-      setWeeks(currentWeeks => [...currentWeeks]); 
-    }
-  }, [isFocused]);
+  const selectedDay = weeks.find((w: any) => w.day === activeDay);
 
   const handleAddExercise = () => {
     if (!newExerciseName.trim()) {
@@ -29,20 +24,14 @@ const Days = () => {
     }
 
     const newExercise = {
-      id: Date.now(),
+      id: String(Date.now()),
       name: newExerciseName,
       description: newExerciseDesc,
       isCompleted: false,
+      image: require('../../assets/images/hero.png')
     };
 
-    const updatedWeeks = weeks.map((dayObj) => {
-      if (dayObj.day === activeDay) {
-        return { ...dayObj, items: [...dayObj.items, newExercise] };
-      }
-      return dayObj;
-    });
-
-    setWeeks(updatedWeeks);
+    dispatch(addExercise({ day: activeDay, exercise: newExercise }));
     setNewExerciseName("");
     setNewExerciseDesc("");
     setModalVisible(false);
@@ -90,7 +79,6 @@ const Days = () => {
 
         <FlatList
           data={selectedDay?.items || []}
-          extraData={isFocused}
           keyExtractor={(item) => String(item.id)}
           ListEmptyComponent={
             <Text className="text-gray-500 italic mt-4 text-center">
@@ -99,12 +87,12 @@ const Days = () => {
           }
           renderItem={({ item }) => (
             <TouchableOpacity 
-              onPress={() => navigation.navigate('ExerciseDetail', { item: item})}
-              className="bg-white p-4 mb-3 rounded-xl border border-gray-200 shadow-sm"
+              className="bg-gray-200 p-4 mb-3 rounded-xl border border-gray-200 shadow-sm"
+              onPress={() => router.push(`/(dashboard)/exercise?id=${item.id}`)}
             >
               <View className="mb-2">
-                <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
-                <Text className="text-sm text-gray-500">{item.description}</Text>
+                <Text className="text-lg font-bold text-gray-900">{item.name}</Text>
+                <Text className="text-sm text-gray-600">{item.description}</Text>
               </View>
               <View className="flex-row justify-between items-center mt-2">
                 <Text className={`font-bold ${item.isCompleted ? "text-green-600" : "text-orange-500"}`}>

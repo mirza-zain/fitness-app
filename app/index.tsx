@@ -10,9 +10,10 @@ export default function Index() {
         <Text className="text-7xl mt-1 text-gray-900 text-center" style={{ fontFamily: 'Fira' }}>
           FIND YOUR{'\n'}STRENGTH
         </Text>
-        <Link href={'./home'} className="px-2 py-4 bg-blue-500 mx-28 my-5 rounded-lg text-center text-2xl font-semibold">
+        <Link href={'./home'} className="text-white px-2 py-4 bg-blue-600 mx-28 my-5 rounded-xl text-center text-2xl font-semibold">
           Get Started
         </Link>
+        <Text className="text-base text-center mt-20">Made with ❤ by Mirza Zain</Text>
     </SafeAreaView>
   );
 }
