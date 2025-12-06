@@ -1,50 +1,151 @@
-# Welcome to your Expo app 👋
+# TitanRep - Fitness Workout Tracker 💪
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern mobile fitness app built with Expo and React Native. Track your daily workouts, mark exercises as complete, and stay consistent with your training goals.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 📅 **Weekly Workout Schedule** - Organize exercises by day (Mon-Sun)
+- ✅ **Exercise Tracking** - Mark exercises as complete/incomplete
+- 📱 **Real-time Status Updates** - Changes sync across all screens
+- 🖼️ **Exercise Details** - View detailed information with images
+- 💬 **Motivational Quotes** - Daily quotes on the home screen
+- 📊 **Continue Training** - See pending exercises on home screen
+- ℹ️ **About Section** - Learn more about the app
 
+## Tech Stack
+
+- **Framework**: Expo with React Native
+- **Routing**: Expo Router (file-based)
+- **State Management**: Redux Toolkit
+- **Styling**: NativeWind (Tailwind CSS for React Native)
+- **Language**: TypeScript
+
+## Get Started
+
+### Prerequisites
+- Node.js & npm installed
+- Expo CLI: `npm install -g expo-cli`
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/mirza-zain/fitness-app.git
+   cd fitness-app
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+4. Open on device/simulator:
+   - Press `w` for web
+   - Press `i` for iOS simulator
+   - Press `a` for Android emulator
+   - Scan QR code with Expo Go app
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+fitness-app/
+├── app/
+│   ├── (dashboard)/          # Dashboard tab layout
+│   │   ├── _layout.tsx       # Tab navigation + header
+│   │   ├── home.tsx          # Home screen with pending exercises
+│   │   ├── exercise.tsx      # Exercise list/detail router
+│   │   └── about.tsx         # About screen
+│   ├── Components/
+│   │   ├── Days.tsx          # Workout schedule component
+│   │   ├── ExerciseDetail.tsx # Exercise detail view
+│   │   ├── DaysList.tsx      # Static exercise data
+│   │   └── ...
+│   ├── slice/
+│   │   └── ExerciseSlice.tsx # Redux slice for exercises
+│   ├── store/
+│   │   └── ExerciseStore.tsx # Redux store configuration
+│   ├── _layout.tsx           # Root layout
+│   └── index.tsx             # Entry point
+├── assets/                   # Images and fonts
+├── package.json
+├── tailwind.config.js
+└── tsconfig.json
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## How to Use
 
-## Learn more
+1. **View Schedule**: Select a day to see exercises for that day
+2. **Add Exercise**: Click the `+` button to add new exercises
+3. **Mark Complete**: Tap an exercise to view details and mark as complete
+4. **Track Progress**: Home screen shows pending exercises
+5. **Learn More**: Click the info icon (ℹ️) for the About section
 
-To learn more about developing your project with Expo, look at the following resources:
+## Key Features
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Redux State Management
+- Centralized exercise state
+- Real-time updates across all screens
+- Persistent data during session
 
-## Join the community
+### Navigation
+- Tab-based navigation (Home, Exercise)
+- Modal for adding new exercises
+- Deep linking to exercise details
 
-Join our community of developers creating universal apps.
+### Responsive Design
+- Mobile-first approach
+- Adapts to different screen sizes
+- Safe area handling for notches
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Development Build
+
+To create a production build:
+
+```bash
+# Android
+eas build --platform android
+
+# iOS
+eas build --platform ios
+
+# Both
+eas build
+```
+
+## Available Scripts
+
+```bash
+# Start development server
+npm start
+
+# Build for production (EAS)
+eas build
+
+# Preview build
+eas build --preview
+```
+
+## Contributing
+
+Feel free to fork this project and submit pull requests for improvements!
+
+## License
+
+MIT License - feel free to use this project as a reference or starting point.
+
+## Author
+
+**Mirza Zain** - [GitHub](https://github.com/mirza-zain)
+
+## Resources
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Docs](https://reactnative.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Expo Router](https://docs.expo.dev/router/introduction/)
+- [NativeWind](https://www.nativewind.dev/)
